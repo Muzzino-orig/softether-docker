@@ -8,7 +8,8 @@ RUN mkdir /usr/local/src && apk update && apk add binutils \
         git \
 		cmake \
 		zlib-dev &&\
-		apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --allow-untrusted
+		apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --allow-untrusted &&\
+		apk add openvpn
 
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 WORKDIR /usr/local/src
