@@ -41,4 +41,5 @@ EXPOSE 5555/tcp 5555/udp
 #CMD ["/root/vpnserver", "execsvc"]
 COPY startup.sh /root/startup.sh
 RUN ["chmod", "+x", "/root/startup.sh"]
-ENTRYPOINT ["/root/startup.sh"]
+CMD ["/root/vpnserver", "execsvc"]
+#ENTRYPOINT ["/root/startup.sh"]
