@@ -38,4 +38,7 @@ COPY --from=builder /usr/local/src/SoftEtherVPN/build/vpnserver /usr/local/src/S
 
 EXPOSE 5555/tcp 5555/udp
 
-CMD ["/root/vpnserver", "execsvc"]
+#CMD ["/root/vpnserver", "execsvc"]
+COPY startup.sh ./
+RUN ["chmod", "+x", "./startup.sh"]
+ENTRYPOINT ["./startup.sh"]
