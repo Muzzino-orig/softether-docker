@@ -24,7 +24,7 @@ FROM alpine
 RUN apk update && apk add readline \
         openssl &&\
         apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --allow-untrusted
-RUN apk add openvpn
+RUN apk add bash && apk add openvpn
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 ENV LD_LIBRARY_PATH /root
 ENV PATH="/root:${PATH}"
@@ -41,5 +41,5 @@ EXPOSE 5555/tcp 5555/udp
 #CMD ["/root/vpnserver", "execsvc"]
 COPY startup.sh /root/startup.sh
 RUN ["chmod", "+x", "/root/startup.sh"]
-CMD ["/root/vpnserver", "execsvc"]
-#ENTRYPOINT ["/root/startup.sh"]
+#CMD ["/root/vpnserver", "execsvc"]
+ENTRYPOINT ["/root/startup.sh"]
