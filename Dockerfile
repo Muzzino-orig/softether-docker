@@ -8,9 +8,8 @@ RUN mkdir /usr/local/src && apk update && apk add binutils \
         git \
 		cmake \
 		zlib-dev &&\
-		apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --allow-untrusted &&\
-		apk add openvpn
-
+		apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --allow-untrusted
+		
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 WORKDIR /usr/local/src
 RUN git clone https://github.com/SoftEtherVPN/SoftEtherVPN.git
@@ -25,6 +24,7 @@ FROM alpine
 RUN apk update && apk add readline \
         openssl &&\
         apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community --allow-untrusted
+RUN apk add openvpn
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 ENV LD_LIBRARY_PATH /root
 ENV PATH="/root:${PATH}"
@@ -37,4 +37,5 @@ RUN ln -s /mnt/vpn_server.config vpn_server.config && \
 COPY --from=builder /usr/local/src/SoftEtherVPN/build/vpnserver /usr/local/src/SoftEtherVPN/build/vpncmd /usr/local/src/SoftEtherVPN/build/libcedar.so /usr/local/src/SoftEtherVPN/build/libmayaqua.so /usr/local/src/SoftEtherVPN/build/hamcore.se2 ./
 
 EXPOSE 5555/tcp 5555/udp
+
 CMD ["/root/vpnserver", "execsvc"]
